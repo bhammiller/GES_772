@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Quick Start - Leaflet</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" 
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" 
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" 
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" 
+    crossorigin=""></script>
+
+
+	
+</head>
+<body>
+
+
+
+<div id="mapid" style="width: 600px; height: 400px;"></div>
+<script>
+
+	var mymap = L.map('mapid').setView([39.122922, -77.203262], 11);
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/streets-v11',
+		tileSize: 512,
+		zoomOffset: -1
+	}).addTo(mymap);
+
+    var geojsonFeature = {"type":"FeatureCollection",
+"features":[
+    {"type":"Feature",
+"properties":{"name":"Quince Orchard","School Level":"High School","Area":"Quince Orchard"},
+"geometry":{"type":"Point","coordinates":[-77.25528001785277,39.11634338786847]}},
+{"type":"Feature","properties":{"name":"Thurgood Marshall","School Level":"Elementary School","Area":"Quince Orchard"},"geometry":{"type":"Point","coordinates":[-77.25976467132568,39.12629836103552]}},{"type":"Feature","properties":{"School Level":"Middle School","name":"Ridgeview","Area":"Quince Orchard"},"geometry":{"type":"Point","coordinates":[-77.24997997283936,39.127979580519074]}},{"type":"Feature","properties":{"name":"Richard Montgomery","School Level":"High School","Area":"Rockville"},"geometry":{"type":"Point","coordinates":[-77.14653253555298,39.07849166758649]}},{"type":"Feature","properties":{"name":"Julius West","School Level":"Middle School","Area":"Rockville"},"geometry":{"type":"Point","coordinates":[-77.16468572616577,39.07659271800866]}},{"type":"Feature","properties":{"name":"Beall","School Level":"Elementary School","Area":"Rockville"},"geometry":{"type":"Point","coordinates":[-77.16157436370848,39.08825212814444]}},{"type":"Feature","properties":{"name":"Watkins Mill","School Level":"High School","Area":"Montgomery Village"},"geometry":{"type":"Point","coordinates":[-77.2153902053833,39.1839196463594]}},{"type":"Feature","properties":{"name":"Montgomery Village","School Level":"Middle School","Area":"Montgomery Village"},"geometry":{"type":"Point","coordinates":[-77.20996141433716,39.17181028161108]}},{"type":"Feature","properties":{"name":"Watkins Mill","School Level":"Elementary School","Area":"Montgomery Village"},"geometry":{"type":"Point","coordinates":[-77.21129179000854,39.16657000618417]}}]};
+L.geoJSON(geojsonFeature).addTo(mymap);
+	
+var popup = L.popup();
+function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent("You clicked the map at " + e.latlng.toString())
+			.openOn(mymap);
+	}
+
+	mymap.on('click', onMapClick);
+
+</script>
+
+
+
+</body>
+</html>
