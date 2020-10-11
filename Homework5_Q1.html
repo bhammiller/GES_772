@@ -27,7 +27,7 @@
 <div id="mapid" style="width: 600px; height: 400px;"></div>
 <script>
 
-	var mymap = L.map('mapid').setView([39.056467, -77.116878], 13);
+	var mymap = L.map('mapid').setView([0, 0], 1);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,
@@ -39,8 +39,7 @@
 		zoomOffset: -1
 	}).addTo(mymap);
 
-	L.marker([39.056467, -77.116878]).addTo(mymap)
-		.bindPopup("<b>Tara Thai</b><br />I am a restaurant.").openPopup();
+	
 
 	
 	
