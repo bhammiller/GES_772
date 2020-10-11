@@ -39,40 +39,21 @@
 		zoomOffset: -1
 	}).addTo(mymap);
 
-    var sixcountries = new L.geoJson();
-	sixcountries.addTo(mymap);
-	
-	$.ajax({
-	dataType: "json",
-	url: "https://raw.githubusercontent.com/bhammiller/GES_772/master/sixcountries.geojson",
-	success: function(data) {
-    	$(data.features).each(function(key, data) {
-        	sixcountries.addData(data);
-    	});
-	}
-	});
-
-    L.geoJSON(sixcountries, {
-        style: function(feature) {
+    $.getJSON("https://raw.githubusercontent.com/bhammiller/GES_772/master/sixcountries.geojson",function(data){
+    var datalayer = L.geoJson(data ,{
+    onEachFeature: function(feature, featureLayer) {
+    featureLayer.bindPopup("Country: " + feature.properties.name + "<br/>Pop: " + feature.properties.population );
+    },
+    style: function(feature) {
             switch (feature.properties.continent) {
                 case 'Europe': return {color: "#0717f8"};
-                case 'South America':   return {fillcolor: "#800a15"};
-                case 'North America':   return {fillcolor: "#800a15"};
+                case 'South America':   return {color: "#800a15"};
+                case 'North America':   return {color: "#800a15"};
             }
-        }
+    }    
     }).addTo(mymap);
-
-    var popup = L.popup();
-	function onMapClick(e) {
-		popup
-			.setLatLng(e.latlng)
-			.setContent("You clicked the map at " + e.latlng.toString())
-			.openOn(mymap);
-	}
-	mymap.on('click', onMapClick);
-
-	
-	
+    });
+    
 
 	
 
