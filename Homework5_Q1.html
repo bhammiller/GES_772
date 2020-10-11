@@ -50,7 +50,17 @@
         	sixcountries.addData(data);
     	});
 	}
-	});	
+	});
+
+    L.geoJSON(sixcountries, {
+        style: function(feature) {
+            switch (feature.properties.continent) {
+                case 'Europe': return {color: "#0717f8"};
+                case 'South America':   return {fillcolor: "#800a15"};
+                case 'North America':   return {fillcolor: "#800a15"};
+            }
+        }
+    }).addTo(mymap);
 
     var popup = L.popup();
 	function onMapClick(e) {
